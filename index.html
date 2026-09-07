@@ -98,6 +98,47 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 .modal__title{font-size:18px; font-weight:700; letter-spacing:-.01em} .modal__msg{font-size:13.5px; color:var(--ink-2); margin-top:7px; line-height:1.5}
 .modal__actions{display:flex; flex-direction:column; gap:9px; margin-top:20px} .modal__actions .btn{width:100%; text-align:center}
 @media (max-width:520px){ body{padding:0} .app-shell{max-width:none; height:100dvh; border-radius:0; border:0; box-shadow:none} .bar__title span{max-width:190px} }
+
+/* Desktop layout. Smaller screens keep the original mobile styles above. */
+@media (min-width:960px){
+  body{padding:28px}
+  .app-shell{max-width:1200px; height:calc(100dvh - 56px); border-radius:28px}
+  .screen{min-height:0}
+  .bar{height:72px; padding:0 28px}
+  .bar__title{min-width:0; font-size:18px}
+  .bar__title span{max-width:none}
+  .bar__title small{font-size:12px; margin-top:3px}
+  .icon-btn{width:38px; height:38px; flex-shrink:0}
+  .app-shell[data-state="home"] .screen--home{
+    display:grid; grid-template-columns:minmax(0,1fr) 340px;
+    grid-template-rows:72px minmax(0,1fr);
+  }
+  .screen--home>.bar{grid-column:1 / -1}
+  .screen--home .body{grid-column:1 / -1; min-height:0; padding:32px}
+  .screen--home:has(.split-dock:not([hidden])) .body{grid-column:1}
+  .home-hero h2{font-size:32px}
+  .home-hero h2 br{display:none}
+  .home-hero p{font-size:16px; margin-top:10px}
+  #scenarioList{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-content:start; margin-top:24px}
+  #scenarioList .cat-label{grid-column:1 / -1; margin:12px 4px 0}
+  #scenarioList .home-empty{grid-column:1 / -1}
+  .scenario-card{min-width:0; min-height:88px; margin:0; padding:18px}
+  .scenario-card__txt{overflow-wrap:anywhere}
+  .split-dock{grid-column:2; grid-row:2; min-height:0; overflow:auto; border-top:0; border-left:1px solid var(--hairline); padding:32px 24px; background:var(--surface-2)}
+  .split-dock__desc{font-size:15px; line-height:1.65; padding:18px; margin-bottom:24px; overflow-wrap:anywhere}
+  .split-dock__q{font-size:16px; text-align:left; line-height:1.6; margin-bottom:20px; overflow-wrap:anywhere}
+  .split{grid-template-columns:1fr; gap:12px}
+  .split button{padding:18px 12px}
+  .split button small{font-size:12px; margin-top:4px}
+  .live-status{padding:22px 0 12px}
+  .transcript{min-height:0; padding:8px max(32px,calc((100% - 860px)/2)) 24px}
+  .bubble{max-width:75%; font-size:17px; line-height:1.6; padding:14px 18px}
+  .turn{margin-top:18px}
+  .turn__who{font-size:12px}
+  .hint{font-size:15px; max-width:48ch}
+  .dock{gap:32px; padding:18px 28px}
+  .modal{max-width:400px; padding:32px}
+}
 </style>
 </head>
 <body>
