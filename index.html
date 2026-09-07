@@ -11,8 +11,8 @@
   --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#A1A1A6;
   --hairline:rgba(0,0,0,.09);
   --blue:#0071E3; --blue-press:#0060BF;
-  --child:#FF9500; --child-soft:#FFF4E5; --child-ink:#B26200;
-  --parent:#5856D6; --parent-soft:#EFEFFD; --parent-ink:#3634A3;
+  --child:#243B53; --child-soft:#EDF2F7; --child-ink:#243B53;
+  --parent:#243B53; --parent-soft:#EDF2F7; --parent-ink:#243B53;
   --ai-bubble:#E9E9EB; --me-bubble:#0071E3;
   --r-card:20px; --r-btn:14px; --r-modal:22px; --r-pill:980px;
   --sh-card:0 1px 3px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
@@ -55,9 +55,16 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 .split-dock__desc{font-size:12.5px; color:var(--ink-2); line-height:1.4; margin-bottom:10px; background:#F2F2F7; padding:8px 12px; border-radius:10px}
 .split-dock__q{font-size:13px; color:var(--ink-2); text-align:center; margin-bottom:11px} .split-dock__q b{color:var(--ink); font-weight:700}
 .split{display:grid; grid-template-columns:1fr 1fr; gap:11px}
-.split button{border:0; cursor:pointer; padding:14px 0; border-radius:var(--r-btn); font-size:16px; font-weight:700; letter-spacing:-.01em; transition:.18s var(--ease); color:#fff}
+.split button{border:1px solid #CAD3DD; cursor:pointer; padding:14px 0; border-radius:var(--r-btn); font-size:16px; font-weight:700; letter-spacing:-.01em; transition:.18s var(--ease); color:#fff}
 .split button:active{transform:scale(.97)}
-.split .btn-child{background:var(--child)} .split .btn-parent{background:var(--parent)}
+.split button:disabled{opacity:.5; cursor:not-allowed}
+.split-dock__desc{white-space:pre-wrap}
+.screen--live .bar{flex-wrap:wrap; height:auto; min-height:56px; padding-top:8px; padding-bottom:8px}
+.screen--live .bar__title{flex:1; min-width:0}
+.screen--live .role-chip{max-width:100%; white-space:normal; overflow-wrap:anywhere}
+.split .btn-child, .split .btn-parent{background:#F4F7FA; color:#243B53}
+.split button:hover:not(:disabled){background:#E5EDF5; border-color:#688099}
+.split button:focus-visible{outline:3px solid #365E85; outline-offset:3px}
 .split button small{display:block; font-size:11px; font-weight:500; opacity:.92; margin-top:2px}
 
 .live-status{flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 0 6px}
@@ -102,7 +109,7 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 /* Desktop layout. Smaller screens keep the original mobile styles above. */
 @media (min-width:960px){
   body{padding:28px}
-  .app-shell{max-width:1200px; height:calc(100dvh - 56px); border-radius:28px}
+  .app-shell{max-width:1760px; height:calc(100dvh - 56px); border-radius:28px}
   .screen{min-height:0}
   .bar{height:72px; padding:0 28px}
   .bar__title{min-width:0; font-size:18px}
@@ -110,29 +117,32 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
   .bar__title small{font-size:12px; margin-top:3px}
   .icon-btn{width:38px; height:38px; flex-shrink:0}
   .app-shell[data-state="home"] .screen--home{
-    display:grid; grid-template-columns:minmax(0,1fr) 340px;
+    display:grid; grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);
     grid-template-rows:72px minmax(0,1fr);
   }
   .screen--home>.bar{grid-column:1 / -1}
   .screen--home .body{grid-column:1 / -1; min-height:0; padding:32px}
   .screen--home:has(.split-dock:not([hidden])) .body{grid-column:1}
-  .home-hero h2{font-size:32px}
+  .home-hero h2{font-size:clamp(30px,2.5vw,44px)}
   .home-hero h2 br{display:none}
-  .home-hero p{font-size:16px; margin-top:10px}
-  #scenarioList{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-content:start; margin-top:24px}
-  #scenarioList .cat-label{grid-column:1 / -1; margin:12px 4px 0}
+  .home-hero p{font-size:clamp(18px,1.4vw,24px); margin-top:10px}
+  #scenarioList{display:grid; grid-template-columns:minmax(0,1fr); gap:12px; align-content:start; margin-top:24px}
+  #scenarioList .cat-label{grid-column:1 / -1; margin:12px 4px 0; font-size:clamp(16px,1.1vw,20px); color:#515158}
   #scenarioList .home-empty{grid-column:1 / -1}
-  .scenario-card{min-width:0; min-height:88px; margin:0; padding:18px}
-  .scenario-card__txt{overflow-wrap:anywhere}
+  .scenario-card{min-width:0; min-height:112px; margin:0; padding:22px 24px; gap:18px}
+  .scenario-card[aria-selected="true"]{background:#EDF3F9; border-color:#365E85; box-shadow:inset 5px 0 #365E85}
+  .scenario-card__emoji{width:48px; height:48px; font-size:26px}
+  .scenario-card__chev{font-size:28px}
+  .scenario-card__txt{font-size:clamp(24px,1.7vw,32px); line-height:1.45; word-break:keep-all; overflow-wrap:anywhere}
   .split-dock{grid-column:2; grid-row:2; min-height:0; overflow:auto; border-top:0; border-left:1px solid var(--hairline); padding:32px 24px; background:var(--surface-2)}
-  .split-dock__desc{font-size:15px; line-height:1.65; padding:18px; margin-bottom:24px; overflow-wrap:anywhere}
-  .split-dock__q{font-size:16px; text-align:left; line-height:1.6; margin-bottom:20px; overflow-wrap:anywhere}
+  .split-dock__desc{font-size:clamp(22px,1.5vw,28px); color:#343A40; line-height:1.65; padding:18px; margin-bottom:24px; overflow-wrap:anywhere}
+  .split-dock__q{font-size:clamp(22px,1.5vw,28px); text-align:left; line-height:1.6; margin-bottom:20px; overflow-wrap:anywhere}
   .split{grid-template-columns:1fr; gap:12px}
-  .split button{padding:18px 12px}
-  .split button small{font-size:12px; margin-top:4px}
+  .split button{padding:22px 20px; font-size:clamp(22px,1.5vw,28px); text-align:left; border-radius:14px; line-height:1.4; word-break:keep-all; overflow-wrap:anywhere}
+  .split button small{font-size:clamp(16px,1.1vw,20px); color:#526477; margin-top:4px}
   /* Prioritize projected conversation text over surrounding controls. */
   .app-shell[data-state="live"]{max-width:1760px; height:calc(100dvh - 56px)}
-  .screen--live .bar{height:64px}
+  .screen--live .bar{height:auto; min-height:64px}
   .screen--live .bar__title{font-size:22px}
   .screen--live .bar__title small{font-size:14px; color:var(--ink-2)}
   .screen--live .role-chip{font-size:16px}
@@ -164,7 +174,7 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
     </div>
     <div class="body">
       <div class="home-hero">
-        <h2>어떤 상황을<br/>해결해 볼까요?</h2>
+        <h2>어떤 상황을 <br/>해결해 볼까요?</h2>
         <p>상황을 선택하고 내가 맡을 역할을 정해보세요.</p>
       </div>
       <div id="scenarioList"><div class="home-empty">시나리오를 불러오는 중…</div></div>
@@ -173,8 +183,8 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
       <div class="split-dock__desc" id="pickedDesc"></div>
       <p class="split-dock__q">「<b id="pickedTitle"></b>」<br/>내가 맡을 역할은?</p>
       <div class="split">
-        <button class="btn-child" id="pickChild">자녀 역할<small>AI는 부모가 됩니다</small></button>
-        <button class="btn-parent" id="pickParent">부모 역할<small>AI는 자녀가 됩니다</small></button>
+        <button class="btn-child" id="pickChild" disabled>역할 선택</button>
+        <button class="btn-parent" id="pickParent" disabled>역할 선택</button>
       </div>
     </div>
   </section>
@@ -185,7 +195,7 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
       <button class="icon-btn" id="endBtn" title="종료" aria-label="역할극 종료">✕</button>
       <div class="bar__title"><span id="liveTitle">시나리오</span><small>실시간 음성 대화</small></div>
       <div class="bar__spacer"></div>
-      <span class="role-chip role-chip--child" id="liveRoleChip">나 · 자녀</span>
+      <span class="role-chip role-chip--child" id="liveRoleChip">내 역할</span>
     </div>
     <div class="live-status">
       <span class="pill" id="statusPill" data-mode="connect"><span class="dot" id="statusDot"></span><span id="statusTxt">연결 중…</span></span>
@@ -212,8 +222,22 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 /*═══════════════════════════════════════════════════════════════════
  * 배포된 GAS 웹앱 실행 URL (새 배포 ID 적용 완료)
  *═══════════════════════════════════════════════════════════════════*/
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxTapKpM8FuNcZw4m8WKdAIH8ZxfR-uZdyjKSHyTCwU8J-Ip3aygnct8ya9iaqraxtD/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwh9k0yGaGlxKBY632ROjyk2lTV2vPOioTicRAXhqQnOuMwTPzv972FfZ1Hiu_1smmt/exec";
 
+// Keep legacy API keys while displaying scenario-specific roles.
+// The parent key corresponds to sheet column D; child corresponds to column E.
+const SCENARIO_ROLES = {
+  S01:{parent:'아빠', child:'딸'},
+  S02:{parent:'개인 작업 중인 배우자', child:'가사·돌봄 중인 배우자'},
+  S03:{parent:'물건을 정리한 가족', child:'물건의 주인'},
+  S04:{parent:'사업을 조언하는 가족', child:'사업을 운영하는 가족'},
+};
+function scenarioRoles(item){
+  const parent=typeof item.roleParent==='string' ? item.roleParent.trim() : '';
+  const child=typeof item.roleChild==='string' ? item.roleChild.trim() : '';
+  if(parent && child && parent!==child) return {parent,child};
+  return SCENARIO_ROLES[item.id] || null;
+}
 const SESSION_MINUTES = 10;
 const INPUT_RATE = 16000, OUTPUT_RATE = 24000;
 const CAT_EMOJI = { '영화': '🎬', '일상': '🏠', '학교': '🏫', '친구': '👥', '살림남': '📺' };
@@ -222,12 +246,15 @@ const $ = s => document.querySelector(s);
 const shell=$('#shell'), scrim=$('#scrim');
 
 const S = {
-  scenarioId:'', title:'', description:'', userRole:'child', session:null,
+  scenarioId:'', title:'', description:'', roles:null, userRole:'child', session:null,
   ws:null, inCtx:null, outCtx:null, stream:null, proc:null, micOn:false,
   playHead:0, sources:[], aiSpeaking:false, connected:false,
   transcript:[], aiBubble:null, meBubble:null, timer:null, remain:SESSION_MINUTES*60,
 };
 
+const myRoleName = () => S.roles[S.userRole];
+const aiRoleName = () => S.roles[S.userRole==='child'?'parent':'child'];
+const startMessage = () => aiRoleName()+' 역할로 상황을 시작해. 상대는 '+myRoleName()+'이야. 상황에 맞는 첫 마디를 짧게 건네줘.';
 const setScreen = s => shell.dataset.state = s;
 function showModal({icon='✕', warn=false, title, msg='', actions=[]}){
   $('#mIcon').textContent=icon; $('#mIcon').className='modal__icon'+(warn?' modal__icon--warn':'');
@@ -243,6 +270,7 @@ function showModal({icon='✕', warn=false, title, msg='', actions=[]}){
 const closeModal=()=>scrim.dataset.open='false'; scrim.onclick=e=>{ if(e.target===scrim) closeModal(); };
 
 async function loadScenarios(){
+  $('#splitDock').hidden=true; S.roles=null;
   const list=$('#scenarioList'); list.innerHTML='<div class="home-empty">시나리오를 불러오는 중…</div>';
   try{
     const res=await fetch(GAS_URL+'?action=scenarios'); const data=await res.json();
@@ -274,19 +302,36 @@ function selectScenario(card, item){
   document.querySelectorAll('.scenario-card').forEach(c=>c.setAttribute('aria-selected','false')); card.setAttribute('aria-selected','true');
   S.scenarioId=item.id; S.title=item.title; S.description=item.description;
   $('#pickedTitle').textContent=item.title; $('#pickedDesc').textContent='상황: '+item.description;
+  S.roles=scenarioRoles(item);
+  ['child','parent'].forEach(role=>{
+    const button=$(role==='child'?'#pickChild':'#pickParent');
+    button.disabled=!S.roles;
+    button.replaceChildren(document.createTextNode(S.roles ? S.roles[role]+' 역할' : '역할 정보 없음'));
+    if(S.roles){
+      const note=document.createElement('small');
+      note.textContent='AI는 '+S.roles[role==='child'?'parent':'child']+' 역할';
+      button.appendChild(note);
+    }
+  });
+  if(!S.roles) $('#pickedDesc').textContent+='\n이 시나리오의 역할 정보가 등록되지 않았습니다.';
   $('#splitDock').hidden=false; card.scrollIntoView({block:'nearest', behavior:'smooth'});
 }
 
 $('#pickChild').onclick=()=>beginRoleplay('child'); $('#pickParent').onclick=()=>beginRoleplay('parent');
 async function beginRoleplay(userRole){
+  if(!S.roles || !['child','parent'].includes(userRole)) return;
   S.userRole=userRole; $('#liveTitle').textContent=S.title;
-  const chip=$('#liveRoleChip'); chip.textContent = userRole==='child' ? '나 · 자녀 (AI: 부모)' : '나 · 부모 (AI: 자녀)';
+  const chip=$('#liveRoleChip'); chip.textContent = '나 · '+myRoleName()+' (AI: '+aiRoleName()+')';
   chip.className='role-chip '+(userRole==='child'?'role-chip--child':'role-chip--parent');
   $('#transcript').innerHTML='<div class="hint">연결 중입니다...</div>'; S.transcript=[]; S.aiBubble=null; S.meBubble=null;
   setStatus('connect','연결 중…'); setScreen('live');
   try{
     const res=await fetch(GAS_URL,{ method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'session', scenarioId:S.scenarioId, userRole}) });
     const data=await res.json(); if(!data.ok) throw new Error(data.error||'세션 생성 실패');
+    if(data.roleParent && data.roleChild){
+      S.roles={parent:data.roleParent,child:data.roleChild};
+      chip.textContent='나 · '+myRoleName()+' (AI: '+aiRoleName()+')';
+    }
     S.session=data; await connectLive(data);
   }catch(err){
     setStatus('connect','연결 실패'); showModal({icon:'!', warn:true, title:'대화 시작 실패', msg:String(err.message||err), actions:[{label:'목록으로', style:'btn--primary', onClick:()=>endRoleplay()}]});
@@ -306,7 +351,7 @@ function connectLive(session){
 async function handleServer(msg, resolveConnect){
   if(msg.setupComplete){
     S.connected=true; await startMic(); S.aiSpeaking=true; setStatus('speak','말하는 중…');
-    const startTrigger = S.userRole === 'child' ? '상황을 시작해. 부모 입장에서 첫 마디를 건네줘.' : '상황을 시작해. 자녀 입장에서 첫 마디를 건네줘.';
+    const startTrigger = startMessage();
     S.ws.send(JSON.stringify({ clientContent:{ turns:[{ role:'user', parts:[{ text:startTrigger }]}], turnComplete:true }}));
     $('#transcript').innerHTML=''; $('#micBtn').disabled=false; $('#micBtn').dataset.on='true'; S.micOn=true; $('#saveBtn').disabled=false; startTimer(); resolveConnect&&resolveConnect(); return;
   }
@@ -321,8 +366,8 @@ async function handleServer(msg, resolveConnect){
 }
 function finishAiTurn(){ closeAi(); const remain=Math.max(0,(S.playHead-(S.outCtx?S.outCtx.currentTime:0))); setTimeout(()=>{ if(shell.dataset.state!=='live')return; S.aiSpeaking=false; if(S.micOn) setStatus('listen','듣는 중…'); }, remain*1000+180); }
 
-function appendAi(t){ const aiLabel = S.userRole==='child' ? '부모 (AI)' : '자녀 (AI)'; if(!S.aiBubble){ S.aiBubble=makeTurn('ai', aiLabel); S.transcript.push({who:'ai', text:''}); } S.aiBubble.textContent+=t; S.transcript[S.transcript.length-1].text=S.aiBubble.textContent; scrollDown(); }
-function appendMe(t){ const myLabel = S.userRole==='child' ? '나 (자녀)' : '나 (부모)'; if(!S.meBubble){ S.meBubble=makeTurn('me', myLabel); S.transcript.push({who:'me', text:''}); } S.meBubble.textContent+=t; S.transcript[S.transcript.length-1].text=S.meBubble.textContent; scrollDown(); }
+function appendAi(t){ const aiLabel = aiRoleName()+' (AI)'; if(!S.aiBubble){ S.aiBubble=makeTurn('ai', aiLabel); S.transcript.push({who:'ai', text:''}); } S.aiBubble.textContent+=t; S.transcript[S.transcript.length-1].text=S.aiBubble.textContent; scrollDown(); }
+function appendMe(t){ const myLabel = '나 ('+myRoleName()+')'; if(!S.meBubble){ S.meBubble=makeTurn('me', myLabel); S.transcript.push({who:'me', text:''}); } S.meBubble.textContent+=t; S.transcript[S.transcript.length-1].text=S.meBubble.textContent; scrollDown(); }
 const closeAi=()=>S.aiBubble=null; const closeMe=()=>S.meBubble=null;
 function makeTurn(who,label){ const t=document.createElement('div'); t.className='turn turn--'+who; const w=document.createElement('span'); w.className='turn__who'; w.textContent=label; const b=document.createElement('div'); b.className='bubble'; t.appendChild(w); t.appendChild(b); $('#transcript').appendChild(t); scrollDown(); return b; }
 function scrollDown(){ const el=$('#transcript'); el.scrollTop=el.scrollHeight; }
@@ -356,9 +401,9 @@ function setStatus(mode,txt){ const pill=$('#statusPill'); pill.dataset.mode=mod
 function startTimer(){ S.remain=SESSION_MINUTES*60; $('#timeChip').hidden=false; tick(); S.timer=setInterval(tick,1000); }
 function tick(){
   const m=String(Math.floor(S.remain/60)).padStart(2,'0'), s=String(S.remain%60).padStart(2,'0'); $('#timeChip').textContent=m+':'+s;
-  if(S.remain<=0){ clearInterval(S.timer); cleanup(); showModal({icon:'⏱', title:'대화 종료', msg:'저장하고 마무리하세요.', actions:[{label:'저장하기', style:'btn--primary', onClick:saveTranscript}, {label:'목록으로', onClick:()=>setScreen('home')}]}); } S.remain--;
+  if(S.remain<=0){ clearInterval(S.timer); cleanup(); showModal({icon:'⏱', title:'대화 종료', msg:'대화 시간이 끝났습니다.', actions:[{label:'종료', style:'btn--primary', onClick:endRoleplay}]}); } S.remain--;
 }
-function askEnd(){ showModal({icon:'✕', warn:true, title:'마칠까요?', msg:'대화를 저장할 수 있습니다.', actions:[{label:'저장 후 종료', style:'btn--primary', onClick:()=>{ saveTranscript(); endRoleplay(); }}, {label:'계속하기'}]}); }
+function askEnd(){ showModal({icon:'✕', warn:true, title:'마칠까요?', msg:'대화를 종료하고 상황 목록으로 돌아갑니다.', actions:[{label:'종료', style:'btn--primary', onClick:endRoleplay}, {label:'계속하기'}]}); }
 $('#endBtn').onclick=askEnd; $('#endBtn2').onclick=askEnd;
 function endRoleplay(){ cleanup(); setScreen('home'); $('#splitDock').hidden=true; }
 function cleanup(){
@@ -370,7 +415,7 @@ function cleanup(){
 $('#saveBtn').onclick=saveTranscript;
 function saveTranscript(){
   if(!S.transcript.length){ showModal({icon:'ⓘ', title:'대화 없음', msg:'진행 후 저장하세요.', actions:[{label:'확인', style:'btn--primary'}]}); return; }
-  const myRole = S.userRole==='child'?'자녀':'부모'; const aiRole = S.userRole==='child'?'부모':'자녀';
+  const myRole = myRoleName(); const aiRole = aiRoleName();
   const lines = S.transcript.filter(x=>x.text.trim()).map(x=>{ const who = x.who==='me' ? `나(${myRole})` : `상대(${aiRole})`; return `[${who}] ${x.text.trim()}`; });
   const out = ['[ 갈등 해결 대화 기록 ]', '• 주제: ' + S.title, '• 역할: ' + myRole, '• 일시: ' + new Date().toLocaleString('ko-KR'), '─'.repeat(30), '', ...lines].join('\n');
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([out],{type:'text/plain;charset=utf-8'})); a.download=`기록_${S.title.slice(0,10)}.txt`; a.click(); URL.revokeObjectURL(a.href);
@@ -380,3 +425,4 @@ $('#reloadBtn').onclick=loadScenarios; loadScenarios();
 </script>
 </body>
 </html>
+
