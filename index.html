@@ -11,8 +11,8 @@
   --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#A1A1A6;
   --hairline:rgba(0,0,0,.09);
   --blue:#0071E3; --blue-press:#0060BF;
-  --child:#FF9500; --child-soft:#FFF4E5; --child-ink:#B26200;
-  --parent:#5856D6; --parent-soft:#EFEFFD; --parent-ink:#3634A3;
+  --child:#243B53; --child-soft:#EDF2F7; --child-ink:#243B53;
+  --parent:#243B53; --parent-soft:#EDF2F7; --parent-ink:#243B53;
   --ai-bubble:#E9E9EB; --me-bubble:#0071E3;
   --r-card:20px; --r-btn:14px; --r-modal:22px; --r-pill:980px;
   --sh-card:0 1px 3px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
@@ -55,14 +55,16 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 .split-dock__desc{font-size:12.5px; color:var(--ink-2); line-height:1.4; margin-bottom:10px; background:#F2F2F7; padding:8px 12px; border-radius:10px}
 .split-dock__q{font-size:13px; color:var(--ink-2); text-align:center; margin-bottom:11px} .split-dock__q b{color:var(--ink); font-weight:700}
 .split{display:grid; grid-template-columns:1fr 1fr; gap:11px}
-.split button{border:0; cursor:pointer; padding:14px 0; border-radius:var(--r-btn); font-size:16px; font-weight:700; letter-spacing:-.01em; transition:.18s var(--ease); color:#fff}
+.split button{border:1px solid #CAD3DD; cursor:pointer; padding:14px 0; border-radius:var(--r-btn); font-size:16px; font-weight:700; letter-spacing:-.01em; transition:.18s var(--ease); color:#fff}
 .split button:active{transform:scale(.97)}
 .split button:disabled{opacity:.5; cursor:not-allowed}
 .split-dock__desc{white-space:pre-wrap}
 .screen--live .bar{flex-wrap:wrap; height:auto; min-height:56px; padding-top:8px; padding-bottom:8px}
 .screen--live .bar__title{flex:1; min-width:0}
 .screen--live .role-chip{max-width:100%; white-space:normal; overflow-wrap:anywhere}
-.split .btn-child{background:var(--child)} .split .btn-parent{background:var(--parent)}
+.split .btn-child, .split .btn-parent{background:#F4F7FA; color:#243B53}
+.split button:hover:not(:disabled){background:#E5EDF5; border-color:#688099}
+.split button:focus-visible{outline:3px solid #365E85; outline-offset:3px}
 .split button small{display:block; font-size:11px; font-weight:500; opacity:.92; margin-top:2px}
 
 .live-status{flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 0 6px}
@@ -107,7 +109,7 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
 /* Desktop layout. Smaller screens keep the original mobile styles above. */
 @media (min-width:960px){
   body{padding:28px}
-  .app-shell{max-width:1200px; height:calc(100dvh - 56px); border-radius:28px}
+  .app-shell{max-width:1760px; height:calc(100dvh - 56px); border-radius:28px}
   .screen{min-height:0}
   .bar{height:72px; padding:0 28px}
   .bar__title{min-width:0; font-size:18px}
@@ -115,26 +117,29 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
   .bar__title small{font-size:12px; margin-top:3px}
   .icon-btn{width:38px; height:38px; flex-shrink:0}
   .app-shell[data-state="home"] .screen--home{
-    display:grid; grid-template-columns:minmax(0,1fr) 340px;
+    display:grid; grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);
     grid-template-rows:72px minmax(0,1fr);
   }
   .screen--home>.bar{grid-column:1 / -1}
   .screen--home .body{grid-column:1 / -1; min-height:0; padding:32px}
   .screen--home:has(.split-dock:not([hidden])) .body{grid-column:1}
-  .home-hero h2{font-size:32px}
+  .home-hero h2{font-size:clamp(30px,2.5vw,44px)}
   .home-hero h2 br{display:none}
-  .home-hero p{font-size:16px; margin-top:10px}
-  #scenarioList{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-content:start; margin-top:24px}
-  #scenarioList .cat-label{grid-column:1 / -1; margin:12px 4px 0}
+  .home-hero p{font-size:clamp(18px,1.4vw,24px); margin-top:10px}
+  #scenarioList{display:grid; grid-template-columns:minmax(0,1fr); gap:12px; align-content:start; margin-top:24px}
+  #scenarioList .cat-label{grid-column:1 / -1; margin:12px 4px 0; font-size:clamp(16px,1.1vw,20px); color:#515158}
   #scenarioList .home-empty{grid-column:1 / -1}
-  .scenario-card{min-width:0; min-height:88px; margin:0; padding:18px}
-  .scenario-card__txt{overflow-wrap:anywhere}
+  .scenario-card{min-width:0; min-height:112px; margin:0; padding:22px 24px; gap:18px}
+  .scenario-card[aria-selected="true"]{background:#EDF3F9; border-color:#365E85; box-shadow:inset 5px 0 #365E85}
+  .scenario-card__emoji{width:48px; height:48px; font-size:26px}
+  .scenario-card__chev{font-size:28px}
+  .scenario-card__txt{font-size:clamp(24px,1.7vw,32px); line-height:1.45; word-break:keep-all; overflow-wrap:anywhere}
   .split-dock{grid-column:2; grid-row:2; min-height:0; overflow:auto; border-top:0; border-left:1px solid var(--hairline); padding:32px 24px; background:var(--surface-2)}
-  .split-dock__desc{font-size:15px; line-height:1.65; padding:18px; margin-bottom:24px; overflow-wrap:anywhere}
-  .split-dock__q{font-size:16px; text-align:left; line-height:1.6; margin-bottom:20px; overflow-wrap:anywhere}
+  .split-dock__desc{font-size:clamp(22px,1.5vw,28px); color:#343A40; line-height:1.65; padding:18px; margin-bottom:24px; overflow-wrap:anywhere}
+  .split-dock__q{font-size:clamp(22px,1.5vw,28px); text-align:left; line-height:1.6; margin-bottom:20px; overflow-wrap:anywhere}
   .split{grid-template-columns:1fr; gap:12px}
-  .split button{padding:18px 12px}
-  .split button small{font-size:12px; margin-top:4px}
+  .split button{padding:22px 20px; font-size:clamp(22px,1.5vw,28px); text-align:left; border-radius:14px; line-height:1.4; word-break:keep-all; overflow-wrap:anywhere}
+  .split button small{font-size:clamp(16px,1.1vw,20px); color:#526477; margin-top:4px}
   /* Prioritize projected conversation text over surrounding controls. */
   .app-shell[data-state="live"]{max-width:1760px; height:calc(100dvh - 56px)}
   .screen--live .bar{height:auto; min-height:64px}
@@ -169,7 +174,7 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
     </div>
     <div class="body">
       <div class="home-hero">
-        <h2>어떤 상황을<br/>해결해 볼까요?</h2>
+        <h2>어떤 상황을 <br/>해결해 볼까요?</h2>
         <p>상황을 선택하고 내가 맡을 역할을 정해보세요.</p>
       </div>
       <div id="scenarioList"><div class="home-empty">시나리오를 불러오는 중…</div></div>
@@ -323,6 +328,10 @@ async function beginRoleplay(userRole){
   try{
     const res=await fetch(GAS_URL,{ method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'session', scenarioId:S.scenarioId, userRole}) });
     const data=await res.json(); if(!data.ok) throw new Error(data.error||'세션 생성 실패');
+    if(data.roleParent && data.roleChild){
+      S.roles={parent:data.roleParent,child:data.roleChild};
+      chip.textContent='나 · '+myRoleName()+' (AI: '+aiRoleName()+')';
+    }
     S.session=data; await connectLive(data);
   }catch(err){
     setStatus('connect','연결 실패'); showModal({icon:'!', warn:true, title:'대화 시작 실패', msg:String(err.message||err), actions:[{label:'목록으로', style:'btn--primary', onClick:()=>endRoleplay()}]});
@@ -416,3 +425,4 @@ $('#reloadBtn').onclick=loadScenarios; loadScenarios();
 </script>
 </body>
 </html>
+
