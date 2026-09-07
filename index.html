@@ -130,13 +130,24 @@ h1,h2,h3,p{margin:0} button{font:inherit} :focus-visible{outline:2px solid var(-
   .split{grid-template-columns:1fr; gap:12px}
   .split button{padding:18px 12px}
   .split button small{font-size:12px; margin-top:4px}
-  .live-status{padding:22px 0 12px}
-  .transcript{min-height:0; padding:8px max(32px,calc((100% - 860px)/2)) 24px}
-  .bubble{max-width:75%; font-size:17px; line-height:1.6; padding:14px 18px}
-  .turn{margin-top:18px}
-  .turn__who{font-size:12px}
-  .hint{font-size:15px; max-width:48ch}
-  .dock{gap:32px; padding:18px 28px}
+  /* Prioritize projected conversation text over surrounding controls. */
+  .app-shell[data-state="live"]{max-width:1760px; height:calc(100dvh - 56px)}
+  .screen--live .bar{height:64px}
+  .screen--live .bar__title{font-size:22px}
+  .screen--live .bar__title small{font-size:14px; color:var(--ink-2)}
+  .screen--live .role-chip{font-size:16px}
+  .live-status{padding:10px 0}
+  .live-status .pill{font-size:16px; color:#424247}
+  .time-chip{font-size:16px; color:#515158}
+  .transcript{min-height:0; padding:8px clamp(24px,3vw,56px) 28px; scrollbar-gutter:stable}
+  .bubble{max-width:min(88%,46ch); font-size:clamp(28px,2.1vw,40px); font-weight:500; line-height:1.6; padding:18px 24px; word-break:keep-all; overflow-wrap:anywhere}
+  .turn--ai .bubble{background:#E9E9EB; color:#171719}
+  .turn--me .bubble{background:#005BBB; color:#fff}
+  .turn{margin-top:24px}
+  .turn__who{font-size:20px; color:#515158; margin-bottom:8px}
+  .hint{font-size:24px; color:#515158; max-width:48ch}
+  .dock{gap:32px; padding:10px 28px}
+  .screen--live .mic{width:60px; height:60px}
   .modal{max-width:400px; padding:32px}
 }
 </style>
